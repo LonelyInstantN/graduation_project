@@ -1,5 +1,5 @@
 {
-  "name": "element-plus-starter",
+  "name": "project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -13,8 +13,12 @@
   },
   "main": "background.js",
   "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "@rozzzly/custom-electron-titlebar": "^3.3.1",
     "core-js": "^3.6.5",
+    "custom-electron-titlebar": "^3.2.7",
     "element-plus": "latest",
+    "splitpanes": "^3.0.6",
     "vue": "^3.0.0"
   },
   "devDependencies": {

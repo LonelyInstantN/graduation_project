@@ -1,33 +1,29 @@
 <template>
-  <img class="logo" alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld :msg="msg"/>
-  <div class="btn">
-    <el-button type="primary" @click="startHacking">
-      Get Started
-    </el-button>
-  </div>
+  <main-view> </main-view>
 </template>
 
 <script>
-import { ref } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from "vue";
+import MainView from "./view/MainView.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    MainView,
   },
   setup() {
-    const msg = ref("Welcome to Element Plus, a Vue 3.0 based component library")
+    const msg = ref(
+      "Welcome to Element Plus, a Vue 3.0 based component library"
+    );
     const startHacking = () => {
-      msg.value = "Start coding with Element Plus with 💖"
-    }
+      msg.value = "Start coding with Element Plus with 💖";
+    };
     return {
       msg,
-      startHacking
-    }
-  }
-}
+      startHacking,
+    };
+  },
+};
 </script>
 
 <style>
@@ -39,12 +35,9 @@ body {
 #app {
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
-.logo {
-  width: 50%;
-}
-.btn {
-  margin-top: 100px;
+body {
+    width: 100vw;
+    height: 100vh;
 }
 </style>
