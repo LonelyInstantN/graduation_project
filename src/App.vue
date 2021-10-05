@@ -35,9 +35,12 @@ body {
 #app {
   text-align: center;
   color: #2c3e50;
-}
-body {
-    width: 100vw;
-    height: 100vh;
+  height: calc(100vh - 30px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

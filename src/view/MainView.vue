@@ -1,12 +1,12 @@
 <template>
   <splitpanes vertical>
     <pane size="20%" min-size="20%">
-      <span>1</span>
+      <tree-view></tree-view>
       <!-- treeView -->
     </pane>
     <pane min-size="40%">
-      <span>2</span>
       <!-- editAreaView -->
+      <edit-area-view> </edit-area-view>
     </pane>
   </splitpanes>
 </template>
@@ -14,10 +14,12 @@
 <script>
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
+import TreeView from './TreeView.vue';
+import EditAreaView from './EditAreaView.vue';
 
 export default {
   name: "MainView",
-  components: { Splitpanes, Pane },
+  components: { Splitpanes, Pane,TreeView, EditAreaView },
   props: {},
 };
 </script>
@@ -25,9 +27,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 .splitpanes {
-  background-color: #f8f8f8;
-  height: calc(100vh - 30px);
-  width: 100vw;
+  background-color: #ffffff;
+  /* height: calc(100vh - 30px); */
+  height: 100%;
+  width: 100%;
 }
 
 .splitpanes__splitter {
@@ -56,5 +59,8 @@ export default {
   top: -4px;
   bottom: -4px;
   width: 100%;
+}
+#edit-area{
+  height: 100%;
 }
 </style>

@@ -1,7 +1,17 @@
-import { Titlebar, Color } from '@rozzzly/custom-electron-titlebar'
+import {
+  Titlebar,
+  Color,
+  RGBA
+} from '@rozzzly/custom-electron-titlebar'
 
-export default function() {
-    new Titlebar({
-        backgroundColor: Color.fromHex('#1F274B')
-      });    
+import { Menu } from '@electron/remote';
+
+
+
+export default function () {
+  console.log(Menu.getApplicationMenu())
+  new Titlebar({
+    backgroundColor: Color.fromHex('#1F274B'),
+    itemBackgroundColor: new Color(new RGBA(0, 0, 0, .32)),
+  });
 }
