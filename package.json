@@ -16,10 +16,10 @@
     "@electron/remote": "^2.0.1",
     "@rozzzly/custom-electron-titlebar": "^3.3.1",
     "core-js": "^3.6.5",
-    "custom-electron-titlebar": "^3.2.7",
     "element-plus": "latest",
     "splitpanes": "^3.0.6",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

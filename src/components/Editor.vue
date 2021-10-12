@@ -5,22 +5,27 @@
     </pane>
     <pane size="20%" min-size="20%">
       <p>
-        In this example the splitters are thin lines but the reactive touch zone
-        is spread to 30 pixels all around!
+        {{count}}
       </p>
     </pane>
   </splitpanes>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 
+import {useStore} from 'vuex'
+
 export default ({
     neme: "Editor",
-components: { Splitpanes, Pane },
+    components: { Splitpanes, Pane },
     setup() {
-        
+        const store = useStore()
+        return{
+          count: computed(() => store.state.count)
+        }
     },
 })
 </script>
