@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow} from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, dialog} from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -28,8 +28,7 @@ async function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: false,
       nodeIntegration: true,
-      enableRemoteModule: true,
-      webSecurity: false
+      enableRemoteModule: true
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
@@ -38,7 +37,15 @@ async function createWindow() {
   })
   remote.enable(win.webContents);
 
-
+  ipcMain.on('open-file-dialog', (event) => {
+    dialog.showOpenDialog({
+      properties: ['openFile', 'openDirectory']
+    }, (files) => {
+      if (files) {
+        event.sender.send('selected-directory', files)
+      }
+    })
+  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode

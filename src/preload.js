@@ -1,4 +1,8 @@
 import title_bar from './scripts/title_bar'
+import { ipcRenderer } from "electron";
+
+window.ipcRenderer = ipcRenderer
+
 window.addEventListener('DOMContentLoaded', () => {
   title_bar()
 
