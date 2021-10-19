@@ -1,7 +1,5 @@
 <template>
 
-    <edit-title> </edit-title>
-
     <editor> </editor>
 
 
@@ -9,11 +7,11 @@
 
 <script>
 import Editor from '../components/Editor.vue';
-import EditTitle from '../components/EditTitle.vue';
+
 
 
 export default {
-  components: { EditTitle, Editor },
+  components: { Editor },
   name: "EditAreaView",
   props: {},
 };
