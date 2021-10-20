@@ -16,15 +16,6 @@
       </div>
       </div>
     </template>
-    <el-input
-      
-      disabled
-      :autosize="{ minRows: 2, maxRows: 4}"
-      type="textarea"
-      placeholder="Please input"
-      style="color:black"
-    >
-    </el-input>
     <div id="input-spacer"></div>
     <div id='original'>
       {{originalText}}

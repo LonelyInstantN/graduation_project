@@ -1,8 +1,6 @@
 <template>
-
-    <editor> </editor>
-
-
+  <editor> </editor>
+  <el-button type="primary">下一个</el-button>
 </template>
 
 <script>
