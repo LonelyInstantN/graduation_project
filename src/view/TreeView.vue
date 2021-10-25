@@ -1,10 +1,11 @@
 <template>
   <el-tabs type="border-card">
-    <el-tab-pane label="User">
-        <tree> </tree>
+    <el-tab-pane label="词条">
+        <tree source="all"> </tree>
         <!-- FullTreeView -->
     </el-tab-pane>
-    <el-tab-pane label="Co">Co
+    <el-tab-pane label="单词本">
+      <tree source="wordList"></tree>
         <!-- WordListTreeView -->
     </el-tab-pane>
   </el-tabs>
