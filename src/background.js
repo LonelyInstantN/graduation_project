@@ -1,12 +1,13 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, ipcMain, dialog} from 'electron'
+import { app, protocol, BrowserWindow, ipcMain, dialog, Menu, } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS3_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
 
 const path = require('path')
 const remote = require('@electron/remote/main');
+const fs = require('fs')
 remote.initialize();
 
 // Scheme must be registered before the app is ready
@@ -21,8 +22,8 @@ async function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 800,
-    minWidth:775,
-    minHeight:600,
+    minWidth: 775,
+    minHeight: 600,
     frame: false,
     useContentSize: true,
     webPreferences: {
@@ -34,18 +35,47 @@ async function createWindow() {
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       // nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       // contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
+
     },
   })
   remote.enable(win.webContents);
 
+  let template = [
+    {
+      label: 'File',
+      submenu: [
+        {
+          label: 'Open File',
+          click: () => {
+            dialog.showOpenDialog({
+              filters: [{ name: 'JSON Files', extensions: ['json'] }],
+              properties: ['openFile']
+            }).then(files => {
+              if (files) {
+                fs.readFile(files['filePaths'][0], 'utf8', (err,data) =>{
+                  if (err) console.log(err);
+                  console.log(data);
+                  win.webContents.send('file-content-income',data)
+                })
+              }
+            })
+          }
+        },
+        {
+          label: 'test',
+          click() {
+            win.webContents.send('ping')
+          }
+        }
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu);
+
   ipcMain.on('open-file-dialog', (event) => {
-    dialog.showOpenDialog({
-      properties: ['openFile', 'openDirectory']
-    }, (files) => {
-      if (files) {
-        event.sender.send('selected-directory', files)
-      }
-    })
+    
   })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {

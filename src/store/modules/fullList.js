@@ -7,17 +7,49 @@ const STATUS = {
 
 //state
 const state = {
-    fullList: [{ key: "json.key", original: "Original Text", status: STATUS.Unapproved, tranlated: "Translated Text" },{ key: "json.key1", original: "Original Text", status: STATUS.Unapproved, tranlated: "Translated Text" }]
+    fullList: [],
+    count: 0
+}
+
+//mutations
+const mutations = {
+    updateFullList(state, list) {
+        console.log("===mutations===");
+        console.log(list);
+        // state.fullList = list
+        for (let item in list) {
+            state.fullList.push(list[item])
+        }
+        console.log(state.fullList);
+    },
+    increment(state) {
+        state.count++
+        console.log(state.count);
+        console.log("fl");
+    }
+}
+
+//actions
+const actions = {
+    importFromFile({ commit }, fl) {
+        let list = []
+        console.log("===actions===");
+        for (var item in fl) {
+            list.push({ key: item, origin: fl[item], status: STATUS.Untranlated, tranlated: "" })
+        }
+        console.log(list);
+        commit('updateFullList', list)
+    },
 }
 
 //getters
 const getters = {
     getFullListTree: (state) => {
-        let tree=[]
-        for(let i in state.fullList){
+        let tree = []
+        for (let i in state.fullList) {
             let item = state.fullList[i]
-            console.log("item"+item);
-            tree.push({id:tree.length,label:item.key})
+            console.log("item" + item);
+            tree.push({ id: tree.length, label: item.key })
         }
         console.log(tree);
         return tree
@@ -29,7 +61,7 @@ const getters = {
     },
     getExportTranslatedJSON: (state) => {
         let target = {}
-        for (let i in state.fullList){
+        for (let i in state.fullList) {
             let item = state.fullList[i]
             target[item.key] = item.tranlated
         }
@@ -45,5 +77,7 @@ export default {
     namespaced: true,
     STATUS,
     getters,
+    mutations,
+    actions,
     state
 }

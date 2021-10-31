@@ -11,7 +11,7 @@ import {
 export default function () {
   // console.log(Menu.getApplicationMenu())
   new Titlebar({
-    backgroundColor: Color.fromHex('#1F274B'),
-    itemBackgroundColor: new Color(new RGBA(0, 0, 0, .32)),
+    backgroundColor: Color.fromHex('#A7C0C9'),
+    itemBackgroundColor: new Color(new RGBA(0, 0, 0, .16)),
   });
 }

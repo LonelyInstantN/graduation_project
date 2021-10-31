@@ -3,9 +3,8 @@
 </template>
 
 <script>
-import { ref } from "vue";
 import MainView from "./view/MainView.vue";
-
+import { useStore } from "vuex";
 
 export default {
   name: "App",
@@ -13,16 +12,17 @@ export default {
     MainView,
   },
   setup() {
-    const msg = ref(
-      "Welcome to Element Plus, a Vue 3.0 based component library"
-    );
-    const startHacking = () => {
-      msg.value = "Start coding with Element Plus with 💖";
-    };
-    return {
-      msg,
-      startHacking,
-    };
+    const store = useStore();
+    window.ipcRenderer.on("file-content-income", (event,data) => {
+      console.log("File Income");
+      console.log(data);
+      console.log(event);
+      let list = JSON.parse(data)
+      console.log(list);
+      store.dispatch("fullList/importFromFile", list);
+      console.log("dispatched");
+    });
+    return {};
   },
 };
 </script>
