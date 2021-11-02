@@ -15,7 +15,7 @@ protocol.registerSchemesAsPrivileged([
   { scheme: 'app', privileges: { secure: true, standard: true } }
 ])
 
-console.log(__dirname)
+
 
 async function createWindow() {
   // Create the browser window.
@@ -54,7 +54,7 @@ async function createWindow() {
               if (files) {
                 fs.readFile(files['filePaths'][0], 'utf8', (err,data) =>{
                   if (err) console.log(err);
-                  console.log(data);
+                  // console.log(data);
                   win.webContents.send('file-content-income',data)
                 })
               }

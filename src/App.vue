@@ -15,10 +15,8 @@ export default {
     const store = useStore();
     window.ipcRenderer.on("file-content-income", (event,data) => {
       console.log("File Income");
-      console.log(data);
-      console.log(event);
+      console.log(data,event);
       let list = JSON.parse(data)
-      console.log(list);
       store.dispatch("fullList/importFromFile", list);
       console.log("dispatched");
     });
