@@ -29,10 +29,16 @@ export default {
 .splitpanes {
   background-color: #ffffff;
   /* height: calc(100vh - 30px); */
-  height: 100%;
+  height: calc(100% - 1px);
   width: 100%;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #dcdfe6;
 }
 
+.el-tabs--border-card{
+  border:0px
+}
 .splitpanes__splitter {
   background-color: #ccc;
   position: relative;

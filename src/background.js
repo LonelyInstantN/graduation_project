@@ -46,16 +46,17 @@ async function createWindow() {
       submenu: [
         {
           label: 'Open File',
+          accelerator: 'CmdOrCtrl+O',
           click: () => {
             dialog.showOpenDialog({
               filters: [{ name: 'JSON Files', extensions: ['json'] }],
               properties: ['openFile']
             }).then(files => {
               if (files) {
-                fs.readFile(files['filePaths'][0], 'utf8', (err,data) =>{
+                fs.readFile(files['filePaths'][0], 'utf8', (err, data) => {
                   if (err) console.log(err);
                   // console.log(data);
-                  win.webContents.send('file-content-income',data)
+                  win.webContents.send('file-content-income', data)
                 })
               }
             })
@@ -73,10 +74,6 @@ async function createWindow() {
 
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);
-
-  ipcMain.on('open-file-dialog', (event) => {
-    
-  })
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode

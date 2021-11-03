@@ -18,6 +18,7 @@ export default {
       console.log(data,event);
       let list = JSON.parse(data)
       store.dispatch("fullList/importFromFile", list);
+      store.dispatch("wordList/importFromFullList");
       console.log("dispatched");
     });
     return {};
