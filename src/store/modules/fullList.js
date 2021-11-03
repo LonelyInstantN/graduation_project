@@ -5,6 +5,10 @@ const STATUS = {
 
 }
 
+function unifyWords(str){
+    return str.toLowerCase().replace(/[.,/#!$%^&*;:{}=\-_`~()]/g,"")
+}
+
 //state
 const state = {
     fullList: [],
@@ -59,6 +63,23 @@ const getters = {
         const result = JSON.stringify(target)
         // console.log(result); 
         return result
+    },
+    getWords: (state) => {
+        let map = {}
+        for (let i in state.fullList){
+            let item = state.fullList[i]
+            let wordList = item.origin.split(' ')
+            for (let word in wordList){
+                let w = unifyWords(wordList[word])
+                // console.log(w);
+                if (map[w]){
+                    map[w]++
+                }else{
+                    map[w] = 1
+                }
+            }
+        }
+        return map
     }
 }
 
