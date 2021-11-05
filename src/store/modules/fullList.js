@@ -39,7 +39,7 @@ const actions = {
 
 //getters
 const getters = {
-    getFullListTree: (state) => {
+    getTree: (state) => {
         let tree = []
         for (let i in state.fullList) {
             let item = state.fullList[i]

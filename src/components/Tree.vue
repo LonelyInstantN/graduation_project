@@ -20,7 +20,7 @@ export default {
     const store = useStore()
     return {
       getTreeData: (source) => {
-        source = source == 'wordList'? "wordList/getWordListTree":"fullList/getFullListTree"
+        source = source == 'wordList'? "wordList/getTree":"fullList/getTree"
         return computed(() => store.getters[source])
       }
     }

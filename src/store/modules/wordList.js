@@ -1,39 +1,37 @@
+const STATUS = {
+    Untranlated: -1,
+    Unapproved: 0,
+    Approved: 1
+
+}
 //state
 const state = {
-    wordList:{}
+    wordList: {}
 }
 
 //mutations
 const mutations = {
-    updateWordList: (state,list) => {
+    updateWordList: (state, list) => {
         state.wordList = list
     }
 }
 
 //actions
 const actions = {
-    importFromFullList: ({commit, rootGetters}) => {
+    importFromFullList: ({ commit, rootGetters }) => {
         let wl = rootGetters['fullList/getWords']
         let list = []
         for (var item in wl) {
-            list.push({ key: item,tranlated: "" })
+            list.push({ key: item, status: STATUS.Untranlated, tranlated: "" })
         }
-        console.log(list);
-        commit('updateWordList',list)
+        // console.log(list);
+        commit('updateWordList', list)
     }
 }
 
 //getters
 const getters = {
-    // getWordListTree: (state) => {
-    //     let tree = []
-        
-    //     for (var key in state.wordList){
-    //         tree.push({id:tree.length+1,label:key})
-    //     }
-    //     return tree
-    // },
-    getWordListTree: (state) => {
+    getTree: (state) => {
         let tree = []
         for (let i in state.wordList) {
             let item = state.wordList[i]
@@ -42,12 +40,19 @@ const getters = {
         }
         return tree
     },
-    getFileExportJson: (state) => {
-        return state.wordList
-    }
+    getExportTranslatedJSON: (state) => {
+        let target = {}
+        for (let i in state.wordList) {
+            let item = state.wordList[i]
+            target[item.key] = item.tranlated
+        }
+        const result = JSON.stringify(target)
+        // console.log(result); 
+        return result
+    },
 }
 
-export default{
+export default {
     namespaced: true,
     getters,
     mutations,
