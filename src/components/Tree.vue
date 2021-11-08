@@ -22,6 +22,10 @@ export default {
       getTreeData: (source) => {
         source = source == 'wordList'? "wordList/getTree":"fullList/getTree"
         return computed(() => store.getters[source])
+      },
+      updateCurrent: (data,source) => {
+        let ctype = source == 'all' ? 1 : 2
+        store.commit({type:'updateCurrentIndex',ctype:ctype,ckey:data.label})
       }
     }
   },
@@ -46,7 +50,7 @@ export default {
       return data.label.indexOf(value) !== -1;
     },
     handleNodeClick(data) {
-      console.log(data);
+      this.updateCurrent(data,this.source)
     },
   },
 };
