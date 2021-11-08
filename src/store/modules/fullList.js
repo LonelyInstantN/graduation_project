@@ -2,7 +2,6 @@ const STATUS = {
     Untranlated: -1,
     Unapproved: 0,
     Approved: 1
-
 }
 
 function unifyWords(str){
@@ -39,6 +38,10 @@ const actions = {
 
 //getters
 const getters = {
+    getItem: (state) => (key) => {
+        console.log(state.fullList.find(item => item.key == key));
+        return state.fullList.find(item => item.key == key)
+    },
     getTree: (state) => {
         let tree = []
         for (let i in state.fullList) {

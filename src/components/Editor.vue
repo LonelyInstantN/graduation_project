@@ -2,10 +2,10 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span id="key-header">Card name</span>
+        <span id="key-header">{{ key }}</span>
         <div id="btn-container">
           <el-checkbox
-            v-model="checked3"
+            v-model="checked"
             label="审核"
             border
             size="medium"
@@ -18,7 +18,7 @@
     </template>
     <div id="input-spacer"></div>
     <div id="original">
-      {{  }}
+      {{origin}}
     </div>
     <div id="input-spacer"></div>
     <el-input
@@ -33,9 +33,35 @@
 </template>
 
 <script>
+import { computed, reactive } from '@vue/runtime-core';
+import { useStore } from 'vuex';
+// const TYPE = {
+//   Full : 1,
+//   Word : 2
+// }
 export default {
   name: "Editor",
   props: {},
+  setup(){
+    const store = useStore()
+    const check = reactive({cheked:true})
+    let currentItem = computed(() => store.getters['getCurrent'])
+    
+    return{
+      currentItem,
+      check
+    }
+  },
+  computed: {
+    key() {
+      if (this.currentItem == undefined) return "this is key"
+      return this.currentItem.key
+    },
+    origin() {
+      if (this.currentItem == undefined) return "this is origin"
+      return this.currentItem.origin
+    },
+  }
 };
 </script>
 

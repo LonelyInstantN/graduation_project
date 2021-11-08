@@ -3,10 +3,15 @@ import { createStore,createLogger } from 'vuex'
 import wordList from './modules/wordList'
 import fullList from './modules/fullList'
 
+const TYPE = {
+  Full : 1,
+  Word : 2
+}
 // root state object.
 // each Vuex instance is just a single state tree.
 const state = {
-  count: 0
+  currentIndex: {}
+  //currentIndex:{type:TYPE.1,key:"",}
 }
 
 // mutations are operations that actually mutate the state.
@@ -15,37 +20,27 @@ const state = {
 // mutations must be synchronous and can be recorded by plugins
 // for debugging purposes.
 const mutations = {
-  increment (state) {
-    state.count++
-  },
-  decrement (state) {
-    state.count--
-  }
+  updateCurrentIndex: (state, payload) => {
+    state.currentIndex = {type:payload.ctype,key:payload.ckey};
+  } 
 }
 
 // actions are functions that cause side effects and can involve
 // asynchronous operations.
 const actions = {
-  increment: ({ commit }) => commit('increment'),
-  decrement: ({ commit }) => commit('decrement'),
-  incrementIfOdd ({ commit, state }) {
-    if ((state.count + 1) % 2 === 0) {
-      commit('increment')
-    }
-  },
-  incrementAsync ({ commit }) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        commit('increment')
-        resolve()
-      }, 1000)
-    })
-  }
 }
 
 // getters are functions.
 const getters = {
-  evenOrOdd: state => state.count % 2 === 0 ? 'even' : 'odd'
+  getCurrent: (state) => {
+    if (Object.keys(state.currentIndex).length === 0) return
+    if (state.currentIndex.type == TYPE.Full){
+      return fullList.getters.getItem(fullList.state)(state.currentIndex.key)
+    }
+    if (state.currentIndex.type == TYPE.Word){
+      return wordList.getters.getItem(wordList.state)(state.currentIndex.key)
+    }
+  }
 }
 
 

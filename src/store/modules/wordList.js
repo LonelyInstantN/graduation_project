@@ -31,6 +31,10 @@ const actions = {
 
 //getters
 const getters = {
+    getItem: (state) => (key) => {
+        console.log(state.wordList.find(item => item.key == key));
+        return state.wordList.find(item => item.key == key)
+    },
     getTree: (state) => {
         let tree = []
         for (let i in state.wordList) {
