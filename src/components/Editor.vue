@@ -29,7 +29,7 @@
     >
     </el-input>
   </el-card>
-  <el-button type="primary">下一个</el-button>
+  <el-button type="primary" @click="nextItem">下一个</el-button>
 </template>
 
 <script>
@@ -48,6 +48,7 @@ export default {
     let currentItem = computed(() => store.getters['getCurrent'])
     
     return{
+      nextItem: () => {store.dispatch('getNext')},
       currentItem,
       check
     }
@@ -61,7 +62,7 @@ export default {
       if (this.currentItem == undefined) return "this is origin"
       return this.currentItem.origin
     },
-  }
+  },
 };
 </script>
 
