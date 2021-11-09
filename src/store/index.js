@@ -33,7 +33,7 @@ const actions = {
 // getters are functions.
 const getters = {
   getCurrent: (state) => {
-    if (Object.keys(state.currentIndex).length === 0) return
+    if (Object.keys(state.currentIndex).length === 0) return {key:"词条id",status:-1,origin:"原文",translated:"输入翻译"}
     if (state.currentIndex.type == TYPE.Full){
       return fullList.getters.getItem(fullList.state)(state.currentIndex.key)
     }
