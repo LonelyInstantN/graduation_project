@@ -6,7 +6,7 @@ const STATUS = {
 }
 //state
 const state = {
-    wordList: {}
+    wordList: []
 }
 
 //mutations
