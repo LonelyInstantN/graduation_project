@@ -2,13 +2,14 @@
   <el-card class="box-card">
     <template #header>
       <div class="card-header">
-        <span id="key-header">{{ key }}</span>
+        <span id="key-header">{{ currentItem.key }}</span>
         <div id="btn-container">
           <el-checkbox
-            v-model="checked"
+            v-model="status"
             label="审核"
             border
             size="medium"
+            @change="updateItem"
           ></el-checkbox>
           <div id="btn-spacer"></div>
           <el-button type="primary" size="medium" icon="el-icon-magic-stick">
@@ -18,7 +19,7 @@
     </template>
     <div id="input-spacer"></div>
     <div id="original">
-      {{origin}}
+      {{ currentItem.origin }}
     </div>
     <div id="input-spacer"></div>
     <el-input
@@ -26,6 +27,7 @@
       :autosize="{ minRows: 2, maxRows: 4 }"
       type="textarea"
       placeholder="Please input"
+      @change="updateItem"
     >
     </el-input>
   </el-card>
@@ -33,8 +35,8 @@
 </template>
 
 <script>
-import { computed, reactive } from '@vue/runtime-core';
-import { useStore } from 'vuex';
+import { computed } from "@vue/runtime-core";
+import { useStore } from "vuex";
 // const TYPE = {
 //   Full : 1,
 //   Word : 2
@@ -42,27 +44,39 @@ import { useStore } from 'vuex';
 export default {
   name: "Editor",
   props: {},
-  setup(){
-    const store = useStore()
-    const check = reactive({cheked:true})
-    let currentItem = computed(() => store.getters['getCurrent'])
-    
-    return{
-      nextItem: () => {store.dispatch('getNext')},
+  setup() {
+    const store = useStore();
+    let currentItem = computed(() => store.getters["getCurrent"]);
+
+    return {
       currentItem,
-      check
+      store,
+    };
+  },
+  data() {
+    return{
+      status: false,
+      translation:""
     }
   },
-  computed: {
-    key() {
-      if (this.currentItem == undefined) return "this is key"
-      return this.currentItem.key
-    },
-    origin() {
-      if (this.currentItem == undefined) return "this is origin"
-      return this.currentItem.origin
-    },
+  watch:{
+    currentItem(val){
+      this.status = val.status == 1 ? true : false
+      this.translation = val.translated
+    }
   },
+  methods:{
+    nextItem() {
+      this.updateItem();
+      this.store.dispatch("getNext");
+      this.translation = this.currentItem.translted == undefined ? "" : this.currentItem.translted
+    },
+    updateItem() {
+      let newItem = {status:this.status == true ? 1 : 0,translated:this.translation}
+      console.log(newItem);
+      this.store.dispatch('updateItem',newItem)
+    }  
+  }
 };
 </script>
 

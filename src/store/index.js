@@ -44,6 +44,15 @@ const actions = {
                                     : wordList.state.wordList[index].key};
 
     commit('updateCurrentIndex',nextItem)
+  },
+  updateItem: ({commit,state},item) => {
+    let isFullList = state.currentIndex.type == TYPE.Full ? true : false
+    console.log(item);
+    if (isFullList){
+      commit('fullList/updateItem',{key:state.currentIndex.key,status:item.status,translated:item.translated})
+    }else{
+      commit('wordList/updateItem',{key:state.currentIndex.key,status:item.status,translated:item.translated})
+    }
   }
 }
 

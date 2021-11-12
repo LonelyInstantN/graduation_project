@@ -13,6 +13,11 @@ const state = {
 const mutations = {
     updateWordList: (state, list) => {
         state.wordList = list
+    },
+    updateItem: (state,item) => {
+        let index = state.wordList.findIndex((i) => i.key == item.key)
+        state.wordList[index].status = item.status
+        state.wordList[index].translated = item.translated
     }
 }
 

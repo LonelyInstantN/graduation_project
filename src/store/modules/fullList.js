@@ -21,6 +21,11 @@ const mutations = {
         state.fullList = list
 
     },
+    updateItem: (state,item) => {
+        let index = state.fullList.findIndex((i) => i.key == item.key)
+        state.fullList[index].status = item.status
+        state.fullList[index].translated = item.translated
+    }
 }
 
 //actions
