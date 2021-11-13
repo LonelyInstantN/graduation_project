@@ -12,7 +12,7 @@
             @change="updateItem"
           ></el-checkbox>
           <div id="btn-spacer"></div>
-          <el-button type="primary" size="medium" icon="el-icon-magic-stick">
+          <el-button type="primary" size="medium" icon="el-icon-magic-stick" @click="quickTranslate">
           </el-button>
         </div>
       </div>
@@ -37,6 +37,7 @@
 <script>
 import { computed } from "@vue/runtime-core";
 import { useStore } from "vuex";
+import translator from '../scripts/translator'
 // const TYPE = {
 //   Full : 1,
 //   Word : 2
@@ -75,7 +76,20 @@ export default {
       let newItem = {status:this.status == true ? 1 : 0,translated:this.translation}
       console.log(newItem);
       this.store.dispatch('updateItem',newItem)
-    }  
+    },
+    quickTranslate() {
+      if (this.currentItem.origin !== undefined){
+        translator.translate(this.currentItem.origin,(data) => {
+          this.translation = data
+          this.updateItem()
+        })
+      }else{
+        translator.translate(this.currentItem.key, (data) => {
+          this.translation = data
+          this.updateItem()
+        })
+      }
+    }
   }
 };
 </script>
