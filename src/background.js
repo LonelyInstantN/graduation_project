@@ -20,8 +20,8 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 800,
+    height: 600,
     minWidth: 775,
     minHeight: 600,
     frame: false,
@@ -45,7 +45,7 @@ async function createWindow() {
       label: 'File',
       submenu: [
         {
-          label: 'Open File',
+          label: '打开源文件',
           accelerator: 'CmdOrCtrl+O',
           click: () => {
             dialog.showOpenDialog({
@@ -55,22 +55,114 @@ async function createWindow() {
               if (files) {
                 fs.readFile(files['filePaths'][0], 'utf8', (err, data) => {
                   if (err) console.log(err);
-                  // console.log(data);
-                  win.webContents.send('file-content-income', data)
+                  win.webContents.send('open-file', data)
                 })
               }
             })
           }
         },
         {
-          label: 'test',
+          label: '导出翻译文件',
+          accelerator: 'CmdOrCtrl+S',
           click() {
-            win.webContents.send('ping')
+            win.webContents.send('export-translated-file')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: '导入项目文件',
+          accelerator: 'CmdOrCtrl+Shift+O',
+          click: () => {
+            dialog.showOpenDialog({
+              filters: [{ name: 'JSON Files', extensions: ['json'] }],
+              properties: ['openFile']
+            }).then(files => {
+              if (files) {
+                fs.readFile(files['filePaths'][0], 'utf8', (err, data) => {
+                  if (err) console.log(err);
+                  win.webContents.send('open-project-file', data)
+                })
+              }
+            })
+          }
+        },
+
+        {
+          label: '保存项目文件',
+          accelerator: 'CmdOrCtrl+Shift+S',
+          click() {
+            win.webContents.send('export-project-file')
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label: '导出单词表',
+          accelerator: 'CmdOrCtrl+P',
+          click() {
+            win.webContents.send('export-wordlist-file')
+          }
+        },
+        {
+          label: '导入单词表',
+          accelerator: 'CmdOrCtrl+Shift+P',
+          click: () => {
+            dialog.showOpenDialog({
+              filters: [{ name: 'JSON Files', extensions: ['json'] }],
+              properties: ['openFile']
+            }).then(files => {
+              if (files) {
+                fs.readFile(files['filePaths'][0], 'utf8', (err, data) => {
+                  if (err) console.log(err);
+                  win.webContents.send('open-wordlist-file', data)
+                })
+              }
+            })
+          }
+        },
+        {
+          type: 'separator'
+        },
+        {
+          label:'关闭文件',
+          accelerator: 'CmdOrCtrl+Q',
+          click(){
+            win.webContents.send('close-file')
+          }
+        }
+      ]
+    },
+    {
+      label:'Edit',
+      submenu:[
+        {
+          label:'生成单词表',
+          accelerator:'F1',
+          click:() => {
+            win.webContents.send('parse-words')
           }
         }
       ]
     }
   ]
+
+  ipcMain.on('save-file',(event,data) => {
+    console.log(event,data);
+    dialog.showSaveDialog({
+      title:'保存文件',
+      filters: [{ name: 'JSON Files', extensions: ['json'] }],
+      properties: ['saveFile']
+    }).then(result => {
+      console.log(data);
+      console.log(result);
+      fs.writeFileSync(result.filePath,data)
+    }).catch(err => {
+      console.log(err);
+    })
+  })
 
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu);

@@ -13,14 +13,58 @@ export default {
   },
   setup() {
     const store = useStore();
-    window.ipcRenderer.on("file-content-income", (event,data) => {
-      // console.log("File Income");
-      // console.log(data,event);
+    //Open file process
+    window.ipcRenderer.on("open-file", (event,data) => {
       let list = JSON.parse(data)
       store.dispatch("fullList/importFromFile", list);
-      store.dispatch("wordList/importFromFullList");
-      console.log("dispatched");
     });
+
+    //Open project file process
+    window.ipcRenderer.on("open-project-file", (event,data) => {
+      let list = JSON.parse(data)
+      store.commit('fullList/updateFullList',list)
+    });
+
+    //Open wordlist file process
+    window.ipcRenderer.on("open-wordlist-file", (event,data) => {
+      let list = JSON.parse(data)
+      store.dispatch('wordList/importFromFile',list)
+    });
+
+    //Parse words process
+    window.ipcRenderer.on("parse-words",(event) => {
+      store.dispatch("wordList/importFromFullList");
+      console.log(event);
+    });
+
+    //Export translated file process
+    window.ipcRenderer.on("export-translated-file",(event) => {
+      console.log(event);
+      let data = store.getters['fullList/getExportTranslatedJSON']
+      window.ipcRenderer.send('save-file',data)
+    });
+
+    //Export project file process
+    window.ipcRenderer.on("export-project-file",(event) => {
+      console.log(event);
+      let data = store.getters['fullList/getExportProjectJSON']
+      window.ipcRenderer.send('save-file',data)
+    });
+
+    //Export wordlist file process
+    window.ipcRenderer.on("export-wordlist-file",(event) => {
+      console.log(event);
+      let data = store.getters['wordList/getExportTranslatedJSON']
+      window.ipcRenderer.send('save-file',data)
+    });
+
+    //Close file
+    window.ipcRenderer.on("close-file",(event) => {
+      console.log(event);
+      store.dispatch("fullList/importFromFile", []);
+      store.dispatch('wordList/importFromFile',[]);
+      store.commit('clearCurrentIndex')
+    })
     return {};
   },
 };

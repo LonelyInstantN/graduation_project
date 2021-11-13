@@ -4,7 +4,7 @@
         <tree source="all"> </tree>
         <!-- FullTreeView -->
     </el-tab-pane>
-    <el-tab-pane label="单词本">
+    <el-tab-pane label="单词表">
       <tree source="wordList"></tree>
         <!-- WordListTreeView -->
     </el-tab-pane>

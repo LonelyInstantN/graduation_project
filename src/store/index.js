@@ -19,7 +19,10 @@ const mutations = {
   updateCurrentIndex: (state, payload) => {
     state.currentIndex = {type:payload.ctype,key:payload.ckey};
     console.log(state.currentIndex);
-  } 
+  }, 
+  clearCurrentIndex:(state) => {
+    state.currentIndex = {}
+  }
 }
 
 
@@ -59,7 +62,7 @@ const actions = {
 
 const getters = {
   getCurrent: (state) => {
-    if (Object.keys(state.currentIndex).length === 0) return {key:"词条id",status:-1,origin:"原文",translated:"输入翻译"}
+    if (Object.keys(state.currentIndex).length === 0) return {key:"词条ID显示在这里",status:-1,origin:"原文显示在这里",translated:"输入翻译"}
     if (state.currentIndex.type == TYPE.Full){
       return fullList.getters.getItem(fullList.state)(state.currentIndex.key)
     }

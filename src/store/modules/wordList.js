@@ -31,6 +31,14 @@ const actions = {
         }
         // console.log(list);
         commit('updateWordList', list)
+    },
+    importFromFile:({commit},wl) => {
+        let list = []
+        for (var item in wl) {
+            list.push({ key: item, status: STATUS.Untranlated, tranlated: "" })
+        }
+        // console.log(list);
+        commit('updateWordList', list)
     }
 }
 

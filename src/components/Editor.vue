@@ -26,7 +26,7 @@
       v-model="translation"
       :autosize="{ minRows: 2, maxRows: 4 }"
       type="textarea"
-      placeholder="Please input"
+      placeholder="在这里输入翻译"
       @change="updateItem"
     >
     </el-input>
