@@ -61,9 +61,9 @@ export default {
 };
 </script>
 
-<style scoped>
-.filter-tree {
-  height: calc(100vh - 30px);
+<style>
+.tree_scroll{
+  height:calc(100vh - 132px);
 }
 </style>
 
