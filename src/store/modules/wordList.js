@@ -1,5 +1,5 @@
 const STATUS = {
-    Untranlated: -1,
+    Untranslated: -1,
     Unapproved: 0,
     Approved: 1
 
@@ -27,7 +27,7 @@ const actions = {
         let wl = rootGetters['fullList/getWords']
         let list = []
         for (var item in wl) {
-            list.push({ key: item, status: STATUS.Untranlated, tranlated: "" })
+            list.push({ key: item, status: STATUS.Untranslated, translated: "" })
         }
         // console.log(list);
         commit('updateWordList', list)
@@ -35,7 +35,7 @@ const actions = {
     importFromFile:({commit},wl) => {
         let list = []
         for (var item in wl) {
-            list.push({ key: item, status: STATUS.Untranlated, tranlated: "" })
+            list.push({ key: item, status: STATUS.Untranslated, translated: "" })
         }
         // console.log(list);
         commit('updateWordList', list)
@@ -61,7 +61,7 @@ const getters = {
         let target = {}
         for (let i in state.wordList) {
             let item = state.wordList[i]
-            target[item.key] = item.tranlated
+            target[item.key] = item.translated
         }
         const result = JSON.stringify(target)
         // console.log(result); 

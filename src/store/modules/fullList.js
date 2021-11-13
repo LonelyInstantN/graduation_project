@@ -1,5 +1,5 @@
 const STATUS = {
-    Untranlated: -1,
+    Untranslated: -1,
     Unapproved: 0,
     Approved: 1
 }
@@ -34,7 +34,7 @@ const actions = {
         let list = []
         // console.log("===actions===");
         for (var item in fl) {
-            list.push({ key: item, origin: fl[item], status: STATUS.Untranlated, tranlated: "" })
+            list.push({ key: item, origin: fl[item], status: STATUS.Untranslated, translated: "" })
         }
         // console.log(list);
         commit('updateFullList', list)
@@ -66,7 +66,7 @@ const getters = {
         let target = {}
         for (let i in state.fullList) {
             let item = state.fullList[i]
-            target[item.key] = item.tranlated
+            target[item.key] = item.translated
         }
         const result = JSON.stringify(target)
         // console.log(result); 
