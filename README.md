@@ -8,7 +8,7 @@
 
 ## 介绍
 
-![](img\discription.png)
+![image](https://github.com/LonelyInstantN/graduation_project/blob/main/img/discription.png)
 
 
 
