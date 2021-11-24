@@ -8,7 +8,7 @@
 
 ## 介绍
 
-![](.\img\discription.png)
+![](img\discription.png)
 
 
 
